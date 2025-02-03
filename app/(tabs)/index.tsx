@@ -1,74 +1,117 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
+import React from 'react';
+import Colors from '@/constant/Colors';
+import { useRouter } from 'expo-router';
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+const newsItems = [
+  { id: '1', title: 'New Shipment Regulations Coming Soon', date: 'Feb 3, 2025' },
+  { id: '2', title: 'Global Shipping Rates Update', date: 'Feb 2, 2025' },
+  { id: '3', title: 'Tracking System Enhancements', date: 'Feb 1, 2025' },
+];
 
 export default function HomeScreen() {
+
+    const router = useRouter();
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <View style={styles.mainview}>
+      <Text style={styles.trackit}>TrackIT</Text>
+
+      {/* First Row: New Shipment & Ongoing Shipping */}
+      <View style={styles.row}>
+        <TouchableOpacity style={styles.card}>
+          <Text style={styles.cardText}>New Shipment</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.card}>
+          <Text style={styles.cardText}>Ongoing Shipping</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Second Row: Shipping Charge Calculator & Tracking */}
+      <View style={styles.row}>
+        <TouchableOpacity style={styles.card}>
+          <Text style={styles.cardText}>Shipping Calculator</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.card}
+          onPress={()=>router.replace('/homeitems/Track')}
+        >
+          <Text style={styles.cardText}>Tracking</Text>
+        </TouchableOpacity>
+      </View>
+
+
+      
+      <Text style={styles.sectionTitle}>News</Text>
+      <FlatList
+        data={newsItems}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <View style={styles.newsItem}>
+            <Text style={styles.newsTitle}>{item.title}</Text>
+            <Text style={styles.newsDate}>{item.date}</Text>
+          </View>
+        )}
+      />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
+  mainview: {
+    padding: 20,
+    backgroundColor: Colors.grey,
+    height: '100%',
+  },
+  trackit: {
+    color: Colors.lightblue,
+    textAlign: 'left',
+    fontSize: 30,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  sectionTitle: {
+      fontSize: 20,
+      fontWeight: 'bold',
+      color: Colors.darkblue,
+      marginBottom: 10,
+  },
+  row: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 15,
+  },
+  card: {
+    flex: 1,
+    backgroundColor: Colors.darkblue,
+    padding: 20,
+    borderRadius: 10,
     alignItems: 'center',
-    gap: 8,
+    justifyContent: 'center',
+    marginHorizontal: 5,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  fullWidth: {
+    width: '100%',
+    marginHorizontal: 0,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  cardText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  newsItem: {
+    backgroundColor: Colors.darklight,
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 10,
+  },
+  newsTitle: {
+    color: Colors.ligt,
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  newsDate: {
+    color: Colors.grey,
+    fontSize: 14,
+    marginTop: 5,
   },
 });
