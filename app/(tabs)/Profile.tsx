@@ -1,8 +1,10 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import React from 'react';
 import Colors from '@/constant/Colors';
+import { useRouter } from 'expo-router';
 
 export default function Profile() {
+  const router = useRouter();
   return (
     <View style={styles.mainview}>
       <Text style={styles.title}>Profile</Text>
@@ -33,7 +35,9 @@ export default function Profile() {
 
       {/* Edit Details Buttons */}
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button}
+          onPress={()=>router.replace('/Edit/EditUser')}
+        >
           <Text style={styles.buttonText}>Edit</Text>
         </TouchableOpacity>
       </View>

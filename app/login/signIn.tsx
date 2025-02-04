@@ -46,9 +46,10 @@ export default function SignIn() {
         <View style={{
             marginTop:25
         }}>
-            <Text style={{
-                fontSize:16
-            }}> Email</Text>
+            <Text 
+            style={styles.inputLabel}
+
+            > Email</Text>
             <TextInput 
                 placeholder='Email' 
                 style ={styles?.TextInput}
@@ -59,9 +60,9 @@ export default function SignIn() {
         <View style={{
             marginTop:25
         }}>
-            <Text style={{
-                fontSize:16
-            }}> Password</Text>
+            <Text 
+                style={styles.inputLabel}
+            > Password</Text>
             <TextInput 
                 placeholder='Password' 
                 style ={styles?.TextInput}
@@ -113,12 +114,18 @@ const styles = StyleSheet.create({
         color:Colors.darklight
     },
     TextInput:{
-        padding:15,
-        borderWidth:1,
-        borderRadius:10,
-        marginTop:5,
-        backgroundColor:'white',
-        
+        padding: 15,
+        borderWidth: 1,
+        borderRadius: 10,
+        backgroundColor: 'white',
+        fontSize: 16,
+        borderColor: Colors.darklight,
+    },
+    inputLabel: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        marginBottom: 5,
+        color: Colors.darkblue,
     },
     button:{
         backgroundColor:Colors.darkblue,
